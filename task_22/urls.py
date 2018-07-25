@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from restaurants import views
+from rest_framework_jwt.views import obtain_jwt_token
 from api.views import (
     RestaurantListView,
     RestaurantDetailView,
@@ -25,7 +26,6 @@ from api.views import (
     RestaurantDeleteView,
     RestaurantCreateView,
     RegisterView,
-    LoginView,
 )
 
 urlpatterns = [
@@ -50,7 +50,8 @@ urlpatterns = [
     path('api/<int:restaurant_id>/update/', RestaurantUpdateView.as_view(), name='api-update'),
     path('api/<int:restaurant_id>/delete/', RestaurantDeleteView.as_view(), name='api-delete'),
     path('api/register/', RegisterView.as_view(), name='api-register'),
-    path('api/login/', LoginView.as_view(), name='api-login'),
+
+    path('api/login/', obtain_jwt_token),
 ]
 
 if settings.DEBUG:
